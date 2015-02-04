@@ -57,6 +57,7 @@ var matches = TAFFY([
 ]);
 //matches.store("pisces");
 
+//Filtering Methods
 function byTeam(team) {
 	return matches(function() {
 		return this.teams.indexOf(team) > -1;
@@ -65,6 +66,29 @@ function byTeam(team) {
 function byRegional(regional) {
 	return matches({"regional": regional})
 }
+function filterMatches(regional, year, team) {
+	return matches(function() {
+		if (regional !== "all") {
+			if (this.regional !== regional) {
+				return false;
+			}
+		}
+		if (year !== "") {
+			if (this.year !== parseInt(year)) {
+				return false;
+			}
+		}
+		if (team !== "") {
+			if (this.teams.indexOf(parseInt(team)) === -1) {
+				return false;
+			}
+		}
+		return true;
+	});
+}
+
+
+//Update analysis tables
 function updateMatchTable(query) {
 	$("#matches").html("<tbody><tr><th>Regional</th><th>Match Number</th><th>Team</th><th>Team</th><th>Team</th><th>Color</th><th>Year</th></tr></tbody>");
 	query.order("year desc, regional, number").each(function(match) {
@@ -115,9 +139,42 @@ function updateTeamTable(regional) {
 		$('#teams tr:last').after('<tr><td>'+sorted[i].key+'</td><td>'+avg+'</td><td>'+(i+1)+'</td></tr>');
 	}
 }
+
+//Misc Utility
 function addMatch(regional, number, year, side, teams) {
-	return matches.insert({"regional":regional, "number":number, "year":year, "side":side, "teams":teams});
+	return matches.insert({"regional":regional, "number":number, "year":year, "side":side, "teams":teams, "stacks":[]});
 }
+
+function bindLinks() {
+	$("#update-team").click(function() {
+		var val = $("#team-regional").val();
+		if (val === "all") {
+			updateTeamTable();
+		}
+		else {
+			updateTeamTable(val);
+		}
+	});
+	$("#update-match").click(function() {
+		updateMatchTable(filterMatches($("#match-regional").val(), $("#match-year").val(), $("#match-team").val()));
+	});
+	$("#match-filter-toggle").click(function() {
+		$("#match-filter").toggle();
+	});
+	$("#team-filter-toggle").click(function() {
+		$("#team-filter").toggle();
+	});
+}
+function populate() {
+	$(".regional-select option").each(function() {
+		for (var regional in regionals) {
+			console.log(regionals[regional]);
+			$(this).after("<option value=\""+regionals[regional]+"\">"+regionals[regional]+"</option>");
+		}
+	});
+}
+
+//Scoring
 function stack_score(stack) {
 	return 2*stack.size + (stack.can ? 4*stack.size : 0) + (stack.litter ? 6 : 0);
 }
@@ -130,51 +187,9 @@ function match_score(match) {
 	}
 	return score;
 }
-function filterMatches(regional, year, team) {
-	return matches(function() {
-		if (regional !== "all") {
-			if (this.regional !== regional) {
-				return false;
-			}
-		}
-		if (year !== "") {
-			if (this.year !== parseInt(year)) {
-				return false;
-			}
-		}
-		if (team !== "") {
-			if (this.teams.indexOf(parseInt(team)) === -1) {
-				return false;
-			}
-		}
-		return true;
-	});
-}
 
 // Init Page
 updateMatchTable(matches());
 updateTeamTable();
-$("#update-team").click(function() {
-	var val = $("#team-regional").val();
-	if (val === "all") {
-		updateTeamTable();
-	}
-	else {
-		updateTeamTable(val);
-	}
-});
-$("#update-match").click(function() {
-	updateMatchTable(filterMatches($("#match-regional").val(), $("#match-year").val(), $("#match-team").val()));
-});
-$("#match-filter-toggle").click(function() {
-	$("#match-filter").toggle();
-});
-$("#team-filter-toggle").click(function() {
-	$("#team-filter").toggle();
-});
-$(".regional-select option").each(function() {
-	for (var regional in regionals) {
-		console.log(regionals[regional]);
-		$(this).after("<option value=\""+regionals[regional]+"\">"+regionals[regional]+"</option>");
-	}
-});
+bindLinks();
+populate();
