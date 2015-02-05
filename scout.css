@@ -1,0 +1,48 @@
+#canandtote {
+    text-align:center;
+    float:right;
+}
+#buttons {
+	text-align:center;
+	float:right;
+}
+body {
+	background-color:orange;
+	font: "Times New Roman", 30em, serif; 
+}
+#text {
+	float:left;
+}
+#matchInfo {
+text-align:left;
+    float:left;
+}
+
+#table {
+
+font: "Times New Roman", 30em, serif; 
+margin-top:10em;
+width:60%;
+
+}
+table, th, td {
+    border: 1px solid black;
+    width:100%;
+}
+#canandtote > p {
+	border: 1px solid black;
+	width:125px;
+	min-height:50px;
+}
+.scout-selected {
+	background-color: blue;
+}
+#time {
+	background-color:#00FF8C;
+	padding:.1em;
+	border: 1px solid black;
+	margin-left:1em;
+}
+#match {
+	width:2em;
+}

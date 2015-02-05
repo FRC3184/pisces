@@ -31,25 +31,3 @@ th, td {
 	display:inline-block;
 	padding:0.3em;
 }
-.detailsButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #b35cff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #b35cff;
-	box-shadow:inset 0px 1px 0px 0px #b35cff;
-	background-color:#8c00ff;
-	border:1px solid #4b008c;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:arial;
-	font-size:13px;
-	font-weight:bold;
-	padding:12px 12px;
-	text-decoration:none;
-}
-.detailsButton:hover {
-	background-color:#6300ba;
-}
-.detailsButton:active {
-	position:relative;
-	top:1px;
-}
