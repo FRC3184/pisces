@@ -12,7 +12,9 @@ var matches = TAFFY([
 		"year": 2016,
 		"side": "blue",
 		"teams": [4057, 4419, 1820],
-		"stacks": [{"team": 4057, "size" : 4, "can": true, "litter": false, time: 40}]
+		"stacks": [{"team": 4057, "size" : 4, "can": true, "litter": false, time: 40}],
+		"landfill": 7,
+		"unprocessed": 5
 	},
 	{
 		"regional": "10k Lakes",
@@ -20,7 +22,9 @@ var matches = TAFFY([
 		"year": 2018,
 		"side": "blue",
 		"teams": [4318, 2155, 2689],
-		"stacks": [{"team": 2155, "size" : 2, "can": true, "litter": true, time: 50}]
+		"stacks": [{"team": 2155, "size" : 2, "can": true, "litter": true, time: 50}],
+		"landfill": 7,
+		"unprocessed": 5
 	},
 	{
 		"regional": "10k Lakes",
@@ -28,7 +32,9 @@ var matches = TAFFY([
 		"year": 2019,
 		"side": "red",
 		"teams": [42, 1135, 912],
-		"stacks": [{"team": 42, "size" : 6, "can": true, "litter": true, time: 20}]
+		"stacks": [{"team": 42, "size" : 6, "can": true, "litter": true, time: 20}],
+		"landfill": 7,
+		"unprocessed": 5
 	},
 	{
 		"regional": "Milwaukee",
@@ -36,7 +42,9 @@ var matches = TAFFY([
 		"year": 2016,
 		"side": "red",
 		"teams": [1720, 2077, 2728],
-		"stacks": [{"team": 1720, "size" : 3, "can": true, "litter": false, time: 70}]
+		"stacks": [{"team": 1720, "size" : 3, "can": true, "litter": false, time: 70}],
+		"landfill": 7,
+		"unprocessed": 5
 	},
 	{
 		"regional": "Kansas City",
@@ -44,7 +52,9 @@ var matches = TAFFY([
 		"year": 2017,
 		"side": "blue",
 		"teams": [1396, 972, 836],
-		"stacks": [{"team": 972, "size" : 6, "can": true, "litter": false, time: 80}]
+		"stacks": [{"team": 972, "size" : 6, "can": true, "litter": false, time: 80}],
+		"landfill": 7,
+		"unprocessed": 5
 	},
 	{
 		"regional": "Lake Superior",
@@ -52,7 +62,9 @@ var matches = TAFFY([
 		"year": 2018,
 		"side": "red",
 		"teams": [2186, 1936, 1980],
-		"stacks": [{"team": 2186, "size" : 3, "can": false, "litter": false, time: 40}]
+		"stacks": [{"team": 2186, "size" : 3, "can": false, "litter": false, time: 40}],
+		"landfill": 7,
+		"unprocessed": 5
 	}
 ]);
 //matches.store("pisces");
@@ -92,7 +104,7 @@ function filterMatches(regional, year, team) {
 function updateMatchTable(query) {
 	$("#matches").html("<tbody><tr><th>Regional</th><th>Match Number</th><th>Team</th><th>Team</th><th>Team</th><th>Color</th><th>Year</th></tr></tbody>");
 	query.order("year desc, regional, number").each(function(match) {
-		$('#matches tr:last').after('<tr><td>'+match.regional+'</td><td>'+match.number+'</td><td>'+match.teams[0]+'</td><td>'+match.teams[1]+'</td><td>'+match.teams[2]+'</td><td>'+match.side+'</td><td>'+match.year+'</td><td><a class="stack_ln" id="'+match.___id+'" href="#">Details</a></td></tr>');
+		$('#matches tr:last').after('<tr><td>'+match.regional+'</td><td>'+match.number+'</td><td>'+match.teams[0]+'</td><td>'+match.teams[1]+'</td><td>'+match.teams[2]+'</td><td>'+match.side+'</td><td>'+match.year+'</td><td><a class="stack_ln detailsButton" id="'+match.___id+'" href="#">Details</a></td></tr>');
 	});
 	$(".stack_ln").each(function(index) {
 		$(this).click(function() {
@@ -100,14 +112,15 @@ function updateMatchTable(query) {
 			$(".stack_ln").parent().parent().removeClass("current_match");
 			$(this).parent().parent().addClass("current_match");
 			var match = matches(this.id).first();
-			var total = 0;
+			var total = match_score(match);
 			for (var i = 0; i < match.stacks.length; i++) {
 				var stack = match.stacks[i];
 				var score = stack_score(stack);
-				total += score;
 				$('#stack-window tr:last').after('<tr><td>'+stack.team+'</td><td>'+stack.size+'</td><td>'+stack.can+'</td><td>'+stack.litter+'</td><td>'+stack.time+'s</td><td>'+score+'</td></tr>');
 			}
 			$("#total").html(total);
+			$("#landfill").html(match.landfill);
+			$("#unprocessed").html(match.unprocessed);
 		});
 	});
 }
@@ -168,7 +181,6 @@ function bindLinks() {
 function populate() {
 	$(".regional-select option").each(function() {
 		for (var regional in regionals) {
-			console.log(regionals[regional]);
 			$(this).after("<option value=\""+regionals[regional]+"\">"+regionals[regional]+"</option>");
 		}
 	});
@@ -185,7 +197,9 @@ function match_score(match) {
 			score += stack_score(match.stacks[i]);
 		}
 	}
-	return score;
+	score += match.landfill;
+	score -= match.unprocessed*4;
+	return Math.max(score, 0);
 }
 
 // Init Page

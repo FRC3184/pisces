@@ -1,13 +1,16 @@
 .col {
-	width:33%;
-	height:100%;
+	width:32%;
+	height:99vh;
 	overflow-y:auto;
+	margin-right:1%;
+	border-right: 1px solid black;
 }
 .current_match {
-	background-color: green;
+	background-color: #00FF8C;
 }
 body {
-	background-color: orange;
+	background-color: #FF8C00;
+	margin:0px;
 }
 table {
     border-collapse: collapse;
@@ -18,7 +21,7 @@ table, th, td {
     border: 1px solid black;
 }
 th, td {
-	padding:0.2em;
+	padding:0.1em;
 }
 .year-select {
 	width:4em;
@@ -27,4 +30,26 @@ th, td {
 	border: 1px solid black;
 	display:inline-block;
 	padding:0.3em;
+}
+.detailsButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #b35cff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #b35cff;
+	box-shadow:inset 0px 1px 0px 0px #b35cff;
+	background-color:#8c00ff;
+	border:1px solid #4b008c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:12px 12px;
+	text-decoration:none;
+}
+.detailsButton:hover {
+	background-color:#6300ba;
+}
+.detailsButton:active {
+	position:relative;
+	top:1px;
 }
