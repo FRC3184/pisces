@@ -5,68 +5,7 @@ regionals.kansasCity = "Kansas City";
 regionals.milwaukee = "Milwaukee";
 
 
-var matches = TAFFY([
-	{
-		"regional": "Milwaukee",
-		"number": 88,
-		"year": 2016,
-		"side": "blue",
-		"teams": [4057, 4419, 1820],
-		"stacks": [{"team": 4057, "size" : 4, "can": true, "litter": false, time: 40}],
-		"landfill": 7,
-		"unprocessed": 5
-	},
-	{
-		"regional": "10k Lakes",
-		"number": 8,
-		"year": 2018,
-		"side": "blue",
-		"teams": [4318, 2155, 2689],
-		"stacks": [{"team": 2155, "size" : 2, "can": true, "litter": true, time: 50}],
-		"landfill": 7,
-		"unprocessed": 5
-	},
-	{
-		"regional": "10k Lakes",
-		"number": 35,
-		"year": 2019,
-		"side": "red",
-		"teams": [42, 1135, 912],
-		"stacks": [{"team": 42, "size" : 6, "can": true, "litter": true, time: 20}],
-		"landfill": 7,
-		"unprocessed": 5
-	},
-	{
-		"regional": "Milwaukee",
-		"number": 66,
-		"year": 2016,
-		"side": "red",
-		"teams": [1720, 2077, 2728],
-		"stacks": [{"team": 1720, "size" : 3, "can": true, "litter": false, time: 70}],
-		"landfill": 7,
-		"unprocessed": 5
-	},
-	{
-		"regional": "Kansas City",
-		"number": 39,
-		"year": 2017,
-		"side": "blue",
-		"teams": [1396, 972, 836],
-		"stacks": [{"team": 972, "size" : 6, "can": true, "litter": false, time: 80}],
-		"landfill": 7,
-		"unprocessed": 5
-	},
-	{
-		"regional": "Lake Superior",
-		"number": 67,
-		"year": 2018,
-		"side": "red",
-		"teams": [2186, 1936, 1980],
-		"stacks": [{"team": 2186, "size" : 3, "can": false, "litter": false, time: 40}],
-		"landfill": 7,
-		"unprocessed": 5
-	}
-]);
+var matches = TAFFY();
 //matches.store("pisces");
 
 //Filtering Methods
@@ -176,6 +115,20 @@ function bindLinks() {
 	});
 	$("#team-filter-toggle").click(function() {
 		$("#team-filter").toggle();
+	});
+	$("#match-data").click(function() {
+		var data = JSON.stringify(filterMatches($("#match-regional").val(), $("#match-year").val(), $("#match-team").val()).get());
+		window.prompt("Raw Match Data (Filtered): \nCopy and save this for backups", data);
+	});
+	$("#match-load").click(function() {
+		var data = JSON.parse(window.prompt("Enter raw match data"));
+		console.log(data);
+		for (var i = 0; i < data.length; i++) {
+			console.log(data[i]);
+			matches.insert(data[i]);
+		}
+		updateMatchTable(filterMatches($("#match-regional").val(), $("#match-year").val(), $("#match-team").val()));
+		updateTeamTable();
 	});
 }
 function populate() {
