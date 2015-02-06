@@ -6,7 +6,7 @@ regionals.milwaukee = "Milwaukee";
 
 
 var matches = TAFFY();
-//matches.store("pisces");
+matches.store("pisces");
 
 //Misc Utility
 function addMatch(regional, number, year, side, teams, stacks, landfill, unprocessed) {
@@ -21,6 +21,9 @@ function addMatch(regional, number, year, side, teams, stacks, landfill, unproce
 		"unprocessed": unprocessed
     });
 }
+function addMatchRaw(match) {
+	return matches.insert(match);
+}
 
 //Scoring
 function stack_score(stack) {
@@ -34,7 +37,12 @@ function match_score(match) {
             score += stack_score(match.stacks[i]);
         }
     }
-    score += match.landfill;
-    score -= match.unprocessed * 4;
+    score += litterScore(match);
     return Math.max(score, 0);
+}
+function litterScore(match) {
+	var score = 0;
+	score += match.landfill;
+    score += match.unprocessed * 4;
+	return score;
 }

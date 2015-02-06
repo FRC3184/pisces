@@ -7,6 +7,7 @@
 </head>
 
 <body>
+	<nav id="links"><a href="analysis.html">Analysis</a> <strong>| Scouting</strong></nav>
     <h1>Scouting Form 2015 Developed by Team 3184 Blaze Robotics</h1>
     <hr>
 
@@ -14,36 +15,36 @@
 
     <div id="canandtote">
         <p>
-            <a class="scout-select" href="#" id="litter"><img src="images/pool-noodle.jpg" height="50" width="100" alt="litter">
+            <a class="scout-select" href="javascript:void(0);" id="litter"><img src="images/pool-noodle.jpg" height="50" width="100" alt="litter">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="can"><img src="images/Can.gif" height="150" width="100" alt="cans">
+            <a class="scout-select" href="javascript:void(0);" id="can"><img src="images/Can.gif" height="150" width="100" alt="cans">
             </a>
         </p>
 
         <p>
-            <a class="scout-select" href="#" id="tote1" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote1"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="tote2" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote2"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="tote3" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote3"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="tote4" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote4"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="tote5" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote5"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <p>
-            <a class="scout-select" href="#" id="tote6" class="tote"><img src="images/tote.gif" height="50" width="125" alt="tote">
+            <a class="scout-select tote" href="javascript:void(0);" id="tote6"><img src="images/tote.gif" height="50" width="125" alt="tote">
             </a>
         </p>
         <hr>
@@ -52,12 +53,12 @@
     <div id="buttons">
         <h2>Autonomous:</h2>
         <br />
-        <a href="#" class="detailsButton" id="tote-set">Tote Set</a>
-        <a href="#" class="detailsButton" id="tote-stack">Tote Stack</a>
+        <a href="javascript:void(0);" class="detailsButton" id="tote-set">Tote Set</a>
+        <a href="javascript:void(0);" class="detailsButton" id="tote-stack">Tote Stack</a>
         <br />
-        <a href="#" class="detailsButton" id="can-set">Can Set</a>
+        <a href="javascript:void(0);" class="detailsButton" id="can-set">Can Set</a>
         <br />
-        <a href="#" class="detailsButton" id="robot-set">Robot Set</a>
+        <a href="javascript:void(0);" class="detailsButton" id="robot-set">Robot Set</a>
         <br />
         <hr>
 
@@ -65,29 +66,32 @@
             <h2>Who is making this stack?</h2>
         </p>
         <p>
-            <a href="#" class="detailsButton newStack" id="team1">Team 3184</a>
+            <a href="javascript:void(0);" class="detailsButton newStack" id="team1">Team</a>
         </p>
         <p>
-            <a href="#" class="detailsButton newStack" id="team2">Team 27</a>
+            <a href="javascript:void(0);" class="detailsButton newStack" id="team2">Team</a>
         </p>
         <p>
-            <a href="#" class="detailsButton newStack" id="team3">Team 2169</a>
+            <a href="javascript:void(0);" class="detailsButton newStack" id="team3">Team</a>
+        </p>
+		<p>
+            <a href="javascript:void(0);" class="detailsButton" id="commitStack">Commit</a>
         </p>
         <p>Current stack score:</p>
-        <span id="stack-score">4000</span>
+        <span id="stack-score">0</span>
         <hr>
-        <h2>Litter: <span id="litter">27</span></h2>
+        <h2>Litter: <span id="litter-score">0</span></h2>
         <br />
-        <a href="#" class="detailsButton">In Landfill</a>
+        <a href="javascript:void(0);" class="detailsButton" id="landfill">In Landfill</a>
         <br />
-        <a href="#" class="detailsButton">Not In Landfill</a>
+        <a href="javascript:void(0);" class="detailsButton" id="no-landfill">Not In Landfill</a>
         <br />
         <hr>
         <h2>Edits</h2>
         <br />
-        <a href="#" class="detailsButton">Stack Logs</a>
+        <a href="javascript:void(0);" class="detailsButton">Stack Logs</a>
         <br />
-        <a href="#" class="detailsButton">Fouls & adjustments</a>
+        <a href="javascript:void(0);" class="detailsButton">Fouls & adjustments</a>
         <hr>
     </div>
 
@@ -97,11 +101,11 @@
         <h2>Current Match: <span id="regional">Superior</span>&nbsp;<input type="number" min="0" id="match" value="0" />&nbsp;<span id="time">00s</time></h2>
         <br />
         <h2>Currently Scouting: 
-        <select>
+        <select id="side">
             <option value="red">Red Alliance</option>
             <option value="blue">Blue Alliance</option>
         </select>
-		<a href="#" id="toggleMatch" class="detailsButton">Start Match</a>
+		<a href="javascript:void(0);" id="toggleMatch" class="detailsButton">Start Match</a>
 		</h2>
         <br />
 
@@ -113,19 +117,19 @@
             <th>Average</th>
             <th>Rank</th>
             <tr>
-                <td>3184</td>
-                <td>290</td>
-                <td>1</td>
+                <td><input type="number" id="team1-in" class="team" value="1234" /></td>
+                <td id="team1-avg">290</td>
+                <td id="team1-rank">1</td>
             </tr>
             <tr>
-                <td>2169</td>
-                <td>189</td>
-                <td>17</td>
+                <td><input type="number" id="team2-in" class="team" value="5678" /></td>
+                <td id="team2-avg">189</td>
+                <td id="team2-rank">17</td>
             </tr>
             <tr>
-                <td>27</td>
-                <td>195</td>
-                <td>13</td>
+                <td><input type="number" id="team3-in" class="team" value="90" /></td>
+                <td id="team3-avg">195</td>
+                <td id="team3-rank">13</td>
             </tr>
         </table>
 
