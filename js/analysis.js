@@ -59,6 +59,9 @@ function updateMatchTable(query) {
             $("#total").html(total);
             $("#landfill").html(match.landfill);
             $("#unprocessed").html(match.unprocessed);
+            $("#auto-set").html(match.auto_set);
+            $("#can-set").html(match.container_set);
+            $("#robot-set").html(match.robot_set);
         });
     });
 }

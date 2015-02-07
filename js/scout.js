@@ -47,6 +47,18 @@ function bindLinks() {
 		match.unprocessed++;
 		$("#litter-score").html(litterScore(match));
 	});
+	$("#can-set").click(function() {
+		match.container_set = true;
+	});
+	$("#robot-set").click(function() {
+		match.robot_set = true;
+	});
+	$("#tote-set").click(function() {
+		match.auto_set = "set";
+	});
+	$("#tote-stack").click(function() {
+		match.auto_set = "stack";
+	});
 }
 function startMatch() {
 	match = {};
@@ -58,6 +70,9 @@ function startMatch() {
 	match.stacks = [];
 	match.landfill = 0;
 	match.unprocessed = 0;
+	match.auto_set = "none";
+	match.robot_set = false;
+	match.container_set = false;
 	
 	$("#team1").html("Team " + match.teams[0]);
 	$("#team2").html("Team " + match.teams[1]);

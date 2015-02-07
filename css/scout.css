@@ -34,7 +34,7 @@ table, th, td {
 	width:125px;
 	min-height:50px;
 }
-.scout-selected {
+.scout-selected > img {
 	background-color: blue;
 }
 #time {

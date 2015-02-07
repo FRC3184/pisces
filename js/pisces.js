@@ -38,6 +38,18 @@ function match_score(match) {
         }
     }
     score += litterScore(match);
+	if (match.robot_set) {
+		score += 4;
+	}
+	if (match.container_set) {
+		score += 8;
+	}
+	if (match.auto_set === "set") {
+		score += 6;
+	}
+	if (match.auto_set === "stack") {
+		score += 20;
+	}
     return Math.max(score, 0);
 }
 function litterScore(match) {
