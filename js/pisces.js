@@ -1,12 +1,7 @@
-var regionals = {};
-regionals.tenKLakes = "10k Lakes";
-regionals.superior = "Lake Superior";
-regionals.kansasCity = "Kansas City";
-regionals.milwaukee = "Milwaukee";
-
-
 var matches = TAFFY();
-matches.store("pisces");
+var regionals = TAFFY();
+matches.store("pisces-matches");
+regionals.store("pisces-regionals");
 
 //Misc Utility
 function addMatch(regional, number, year, side, teams, stacks, landfill, unprocessed) {
@@ -34,7 +29,9 @@ function match_score(match) {
     var score = 0;
     if (match.stacks !== undefined) {
         for (var i = 0; i < match.stacks.length; i++) {
-            score += stack_score(match.stacks[i]);
+			if (match.stacks[i].valid) {
+				score += stack_score(match.stacks[i]);
+			}
         }
     }
     score += litterScore(match);

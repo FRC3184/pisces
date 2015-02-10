@@ -63,7 +63,7 @@ function bindLinks() {
 function startMatch() {
 	match = {};
 	match.teams = [parseInt($("#team1-in").val()), parseInt($("#team2-in").val()), parseInt($("#team3-in").val())];
-	match.regional = regionals.superior;
+	match.regional = regionals({"selected":true});
 	match.number = $("#match").val();
 	match.year = 2015;
 	match.side = $("#side").val();
@@ -80,11 +80,11 @@ function startMatch() {
 	
 	inMatch = true;
 	$("#toggleMatch").html("End Match");
-	time = 0;
+	time = (60*2) +  30;
 	timeID = setInterval(function() {
-		time++;
+		time--;
 		$("#time").html(time + "s");
-		if (time === (60*2) +  30) {
+		if (time === 0) {
 			endMatch();
 		}
 		
@@ -99,6 +99,7 @@ function endMatch() {
 function commitStack() {
 	
 	curStack.time = time;
+	curStack.valid = true;
 	$(".scout-selected").removeClass("scout-selected");
 	match.stacks.push(curStack);
 	curStack = {};
