@@ -1,6 +1,9 @@
 function populate() {
-    $(".regional-select option").each(function() {
-        for (var regional in regionals().get()) {
+	$(".regional-select > option").not("[value='all']").remove();
+    $(".regional-select > option").each(function() {
+		var reg = regionals().get();
+        for (var i = 0; i < reg.length; i++) {
+			var regional = reg[i];
             $(this).after("<option value=\"" + regional.name + "\">" + regional.name + "</option>");
         }
     });
@@ -40,12 +43,50 @@ function bindLinks() {
 	$("#edit-regionals").click(function() {
 		$(".modal").modal();
 	});
+	$("#new-regional-button").click(function() {
+		regionals.insert({"name":$("#regional-new").val(), "matches":[{"blue":[], "red":[]}]});
+		populate();
+	});
+	$("#regional-edit").blur(function() {
+		var reg = regionals({"name":$("#regional-edit").val()}).first();
+		regionals({"name":$("#regional-edit").val()}).each(function(rec) {
+			console.log(rec);
+		});
+		$(".wrapper table").html("<thead><tr><th>Match Number</th><th class='blue'>Team</th><th class='blue'>Team</th><th class='blue'>Team</th><th class='red'>Team</th><th class='red'>Team</th><th class='red'>Team</th></tr></thead><tbody></tbody>");
+		for (var i = 0; i < 100; i++) {
+			var num = (i+1);
+			$('.wrapper table tr:last')
+			.after('<tr class="reg-match"><th>' + num + '</th><th class="blue"><input value="'+reg.matches[i].blue[0]+'" type="number" class="teamnum" data-match="' + i + '" /></th><th class="blue"><input value="'+reg.matches[i].blue[1]+'" type="number" class="teamnum" data-match="' + i + '" /></th><th class="blue"><input value="'+reg.matches[i].blue[2]+'" type="number" class="teamnum" data-match="' + i + '" /></th><th class="red"><input value="'+reg.matches[i].red[0]+'" type="number" class="teamnum" data-match="' + i + '" /></th><th class="red"><input value="'+reg.matches[i].red[1]+'" type="number" class="teamnum" data-match="' + i + '" /></th><th class="red"><input value="'+reg.matches[i].red[2]+'" type="number" class="teamnum" data-match="' + i + '" /></th></tr>');
+		}
+	});
+	$("#save-regional-button").click(function() {
+		var name = regionals({"name":$("#regional-edit").val()}).first().name;
+		var matches = [];
+		$(".reg-match").each(function() {
+			var blue = [];
+			var red = [];
+			$(this).children(".blue").each(function() {
+				blue.push($(this).children().first().val());
+			});
+			$(this).children(".red").each(function() {
+				red.push($(this).children().first().val());
+			});
+			matches.push({"blue":blue, "red":red});
+		});
+		console.log(matches);
+		regionals({"name":name}).remove();
+		regionals.insert({"name":name, "matches":matches})
+		
+	});
+}
+function regionalTeam(reg, match, side, num) {
+	return safeArray(safeArray(reg.matches, match, ""), side, "");
 }
 //Update analysis tables
 function updateMatchTable(query) {
     $("#matches").html("<tbody><tr><th>Regional</th><th>Match Number</th><th>Team</th><th>Team</th><th>Team</th><th>Color</th><th>Year</th></tr></tbody>");
     query.order("year desc, regional, number").each(function(match) {
-        $('#matches tr:last').after('<tr><td>' + match.regional.name + '</td><td>' + match.number + '</td><td>' + match.teams[0] + '</td><td>' + match.teams[1] + '</td><td>' + match.teams[2] + '</td><td>' + match.side + '</td><td>' + match.year + '</td><td><a class="stack_ln detailsButton" id="' + match.___id + '" href="#">Details</a></td></tr>');
+        $('#matches tr:last').after('<tr><td>' + match.regional + '</td><td>' + match.number + '</td><td>' + match.teams[0] + '</td><td>' + match.teams[1] + '</td><td>' + match.teams[2] + '</td><td>' + match.side + '</td><td>' + match.year + '</td><td><a class="stack_ln detailsButton" id="' + match.___id + '" href="#">Details</a></td></tr>');
     });
     $(".stack_ln").each(function() {
         $(this).click(function() {
@@ -83,17 +124,18 @@ function updateMatchTable(query) {
 					match.stacks[num].valid = $(this).is(":checked");
 				});
 				match.container_set = $("#match_container_set").is(":checked");
-				match.robot_set = $("#match_robot_set").is(":checked");/* 
-				matches(id).update(function() {
-					this.container_set = match.container_set;
-					this.robot_set = match.robot_set;
-					this.stacks = match.stacks;
-					return this;
-				}); */
+				match.robot_set = $("#match_robot_set").is(":checked");
 				matches(id).remove();
 				
 				matches.insert(match);
+				
+				location.reload();
 				//update();
+			});
+			$("#delete-match").click(function() {
+				matches(id).remove();
+				
+				location.reload();
 			});
         });
     });

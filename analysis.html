@@ -42,6 +42,7 @@
     <table id="stack-window"></table>
 	<br />
 	<a href="javascript:void(0);" id="commit-match" class="detailsButton">Commit</a>
+	<a href="javascript:void(0);" id="delete-match" class="detailsButton">Delete</a>
   </div>
 
   <div class="col" style="float:right;">
@@ -67,11 +68,21 @@
 </script><script src="js/lib.js" type="text/javascript">
 </script><script src="js/pisces.js" type="text/javascript">
 </script><script src="js/analysis.js" type="text/javascript">
+</script><script src="js/jquery.floatThead.min.js" type="text/javascript">
 </script>
 <div class="modal" style="display:none">
-	<select class="regional-select" id="regional-add">
-	
+	<select class="regional-select" id="regional-edit">
+		<option value="all" disabled="true">
+			All Regionals
+		</option>
 	</select>
+	<input id="regional-new" type="text" placeholder="New" />
+	<a href="javascript:void(0);" id="new-regional-button" class="detailsButton">New</a>
+	<a href="javascript:void(0);" id="save-regional-button" class="detailsButton">Save</a><br />
+	
+	<div class="wrapper">
+      <table></table>
+    </div>
 </div>
 </body>
 </html>

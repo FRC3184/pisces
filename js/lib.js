@@ -29,3 +29,10 @@ function sortObject(obj) {
     //arr.sort(function(a, b) { a.value.toLowerCase().localeCompare(b.value.toLowerCase()); }); //use this to sort as strings
     return arr; // returns array
 }
+function safeArray(arr, i, def) {
+	var k = arr[i];
+	if (k === undefined) {
+		return def;
+	}
+	return k;
+}

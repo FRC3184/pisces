@@ -31,3 +31,22 @@ th, td {
 	display:inline-block;
 	padding:0.3em;
 }
+.teamnum {
+	width:5em;
+}
+.modal {
+	height:50%;
+	width:50%;
+	overflow:auto;
+}
+.blue {
+	background-color:blue;
+}
+.red {
+	background-color:red;
+}
+.wrapper {
+	#overflow:auto;
+	height:10%;
+	width:100%;
+}
