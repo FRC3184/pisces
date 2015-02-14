@@ -19,6 +19,16 @@ function addMatch(regional, number, year, side, teams, stacks, landfill, unproce
 function addMatchRaw(match) {
 	return matches.insert(match);
 }
+function populate() {
+	$(".regional-select > option").not("[value='all']").remove();
+    $(".regional-select > option").each(function() {
+		var reg = regionals().get();
+        for (var i = 0; i < reg.length; i++) {
+			var regional = reg[i];
+            $(this).after("<option value=\"" + regional.name + "\">" + regional.name + "</option>");
+        }
+    });
+}
 
 //Scoring
 function stack_score(stack) {

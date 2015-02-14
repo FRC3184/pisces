@@ -60,12 +60,18 @@ function bindLinks() {
 		match.auto_set = "stack";
 	});
 	$("#match").blur(function() {
-		var match = regionals({"name":$("#regional").val()}).first().matches[parseInt($("#match").val())-1];
-		var teams = match[$("#side").val()];
-		$("#team1-in").val(teams[0]);
-		$("#team2-in").val(teams[1]);
-		$("#team3-in").val(teams[2]);
+		populateTeams();
 	}); 
+	$("#side").blur(function() {
+		populateTeams();
+	}); 
+}
+function populateTeams() {
+	var match = regionals({"name":$("#regional").val()}).first().matches[parseInt($("#match").val())-1];
+	var teams = match[$("#side").val()];
+	$("#team1-in").val(teams[0]);
+	$("#team2-in").val(teams[1]);
+	$("#team3-in").val(teams[2]);
 }
 function startMatch() {
 	match = {};
@@ -116,16 +122,6 @@ function updateStackScore() {
 	curStack.can = $("#can").is(".scout-selected");
 	curStack.litter = $("#litter").is(".scout-selected");
 	$("#stack-score").html(stack_score(curStack));
-}
-function populate() {
-	$(".regional-select > option").not("[value='all']").remove();
-    $(".regional-select > option").each(function() {
-		var reg = regionals().get();
-        for (var i = 0; i < reg.length; i++) {
-			var regional = reg[i];
-            $(this).after("<option value=\"" + regional.name + "\">" + regional.name + "</option>");
-        }
-    });
 }
 
 //Page Init

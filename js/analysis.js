@@ -1,13 +1,3 @@
-function populate() {
-	$(".regional-select > option").not("[value='all']").remove();
-    $(".regional-select > option").each(function() {
-		var reg = regionals().get();
-        for (var i = 0; i < reg.length; i++) {
-			var regional = reg[i];
-            $(this).after("<option value=\"" + regional.name + "\">" + regional.name + "</option>");
-        }
-    });
-}
 function bindLinks() {
     $("#update-team").click(function() {
         var val = $("#team-regional").val();
@@ -44,7 +34,11 @@ function bindLinks() {
 		$(".modal").modal();
 	});
 	$("#new-regional-button").click(function() {
-		regionals.insert({"name":$("#regional-new").val(), "matches":[{"blue":[], "red":[]}]});
+		var matches = [];
+		for (var i = 0; i < 100; i++) {
+			matches.push({"blue":[], "red":[]});
+		}
+		regionals.insert({"name":$("#regional-new").val(), "matches":matches});
 		populate();
 	});
 	$("#regional-edit").blur(function() {
@@ -78,6 +72,18 @@ function bindLinks() {
 		regionals.insert({"name":name, "matches":matches})
 		
 	});
+	$("#raw-regional-button").click(function() {
+        var data = JSON.stringify(regionals().get());
+        window.prompt("Raw Regional Data: \nCopy and save this for backups", data);
+    });
+    $("#load-regional-button").click(function() {
+        var data = JSON.parse(window.prompt("Enter raw regional data"));
+        for (var i = 0; i < data.length; i++) {
+            regionals.insert(data[i]);
+        }
+        //updateMatchTable(filterMatches($("#match-regional").val(), $("#match-year").val(), $("#match-team").val()));
+        //updateTeamTable();
+    });
 }
 function regionalTeam(reg, match, side, num) {
 	return safeArray(safeArray(reg.matches, match, ""), side, "");
